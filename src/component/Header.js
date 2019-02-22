@@ -5,7 +5,7 @@ function Header(props) {
         <div>
             <nav>
                 <div className="nav-wrapper light-blue darken-2">
-                    <a className="brand-logo">{props.titulo}</a>
+                    <p className="brand-logo">{props.titulo}</p>
                 </div>
             </nav>
         </div>

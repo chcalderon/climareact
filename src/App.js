@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Header from './component/Header';
 import Formulario from './component/Formulario';
 import Error from './component/Error';
+import Clima from './component/Clima';
 
 class App extends Component {
 
   state = {
     error: '',
-    consulta: {}
+    consulta: {},
+    resultado: {}
   }
 
   componentDidMount() {
@@ -16,8 +18,17 @@ class App extends Component {
     })
   }
 
-  componentDidUpdate() {
-    this.consultarApi();
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(prevProps);
+    // console.log(prevState);
+    // console.log("this.state.consulta");
+    // console.log(this.state.consulta);
+    // console.log("prevState.consulta");
+    // console.log(prevState.consulta);
+    if(prevState.consulta !== this.state.consulta){
+      this.consultarApi();
+    }
+    
   }
 
   consultarApi = () => {
@@ -26,12 +37,26 @@ class App extends Component {
 
     //console.log(ciudad);
     //query con fetch api
+    //Leer la url y agregar el api key
     const appId = "67d771afece158d11a952f122979ddfb";
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
     //console.log(url);
-    //Leer la url y agregar el api key
 
-    //consultar con Fetch
+    // Query con fetch api
+    //fetch(url).then ( respuesta => {console.log(respuesta.json())})
+    fetch(url).then ( respuesta => {
+      return respuesta.json();
+    })
+    .then(datos => {
+      //console.log(datos);
+      this.setState({
+        resultado: datos,
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    
   }
 
   datosConsulta = respuesta => {
@@ -57,10 +82,10 @@ class App extends Component {
     if (error) {
       resultado = <Error mensaje="Ambos campos son obligatorios"/>
     } 
-    // else {
-    //   // se carga componente del clima
-      
-    // }
+    else {
+      // se carga componente del clima
+      resultado = <Clima resultado = {this.state.resultado}/>
+    }
 
     return (
       <div className="App">
