@@ -34,6 +34,7 @@ class Formulario extends Component {
                             <div className="input-field col s12 m8 l4 offset-m2">
                                 <select id="pais" ref={this.paisRef}>
                                     <option value="" defaultValue>Elige un país</option>
+                                    <option value="CL" >Chile</option>
                                     <option value="AR" >Argentina</option>
                                     <option value="CO" >Colombia</option>
                                     <option value="CR" >Costa Rica</option>
