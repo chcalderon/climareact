@@ -75,14 +75,16 @@ class App extends Component {
 
   render() {
 
-    const error = this.state.error;
+    const {error} = this.state,
+    {cod} = this.state.resultado;
 
-    let resultado= undefined;
+    let resultado;
 
     if (error) {
       resultado = <Error mensaje="Ambos campos son obligatorios"/>
-    } 
-    else {
+    } else if (cod==="404") {
+      resultado = <Error mensaje="No existe ciudad, verifique sus datos ingresados"/>
+    } else {
       // se carga componente del clima
       resultado = <Clima resultado = {this.state.resultado}/>
     }
